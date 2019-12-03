@@ -15,6 +15,7 @@
 		9A8EE80E23963E7800706AE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A8EE80C23963E7800706AE5 /* LaunchScreen.storyboard */; };
 		9A8EE81923963E7800706AE5 /* TextRecognizeInImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8EE81823963E7800706AE5 /* TextRecognizeInImageTests.swift */; };
 		9A8EE82423963E7900706AE5 /* TextRecognizeInImageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8EE82323963E7900706AE5 /* TextRecognizeInImageUITests.swift */; };
+		9A8EE8322396444400706AE5 /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9A8EE8312396444400706AE5 /* image.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		9A8EE81F23963E7900706AE5 /* TextRecognizeInImageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TextRecognizeInImageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A8EE82323963E7900706AE5 /* TextRecognizeInImageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizeInImageUITests.swift; sourceTree = "<group>"; };
 		9A8EE82523963E7900706AE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A8EE8312396444400706AE5 /* image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 		9A8EE80023963E7700706AE5 /* TextRecognizeInImage */ = {
 			isa = PBXGroup;
 			children = (
+				9A8EE8312396444400706AE5 /* image.jpg */,
 				9A8EE80123963E7700706AE5 /* AppDelegate.swift */,
 				9A8EE80323963E7700706AE5 /* SceneDelegate.swift */,
 				9A8EE80523963E7700706AE5 /* ViewController.swift */,
@@ -235,6 +238,7 @@
 				9A8EE80E23963E7800706AE5 /* LaunchScreen.storyboard in Resources */,
 				9A8EE80B23963E7800706AE5 /* Assets.xcassets in Resources */,
 				9A8EE80923963E7700706AE5 /* Main.storyboard in Resources */,
+				9A8EE8322396444400706AE5 /* image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
