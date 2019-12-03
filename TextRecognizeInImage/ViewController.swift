@@ -8,6 +8,7 @@
 
 import UIKit
 import Vision
+import VisionKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
@@ -19,15 +20,20 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         setupImage()
-       setupVisionTextRecognizeImage()
     }
     
  
     
     @IBAction func touchupInsideCamera(_ sender: Any) {
         setupActionSheet()
+    }
+    
+    
+    private func scanDocument() {
+        let documentVC = VNDocumentCameraViewController()
+        documentVC.delegate = self
+        self.present(documentVC, animated: true, completion: nil)
     }
     
     private func setupActionSheet(){
@@ -37,7 +43,8 @@ class ViewController: UIViewController {
             self.setupGallery()
         }
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { (alertAction) in
-            self.setupCamera()
+            //self.setupCamera()
+            self.scanDocument()
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
@@ -71,9 +78,11 @@ class ViewController: UIViewController {
     
     private func setupImage(){
         self.imageView.image = UIImage(named: "image.jpg")
+        setupVisionTextRecognizeImage(image:self.imageView.image)
+
     }
 
-    private func setupVisionTextRecognizeImage(){
+    private func setupVisionTextRecognizeImage(image: UIImage?){
 
         var textString = ""
 
@@ -98,13 +107,41 @@ class ViewController: UIViewController {
                request.recognitionLanguages = ["en_US"]
                let requests = [request]
                DispatchQueue.global(qos: .userInitiated).async {
-                   guard let img = UIImage(named: "image.jpg")?.cgImage else {
+                guard let img = image?.cgImage else {
                        fatalError("Missing image to scan")}
                    let handle = VNImageRequestHandler(cgImage: img, options: [:])
                    try? handle.perform(requests)}}
 
 }
 
+// MARK:- EXTENSION VNDOCUMENTCAMERAVIEWCONTROLLER
+
+extension ViewController: VNDocumentCameraViewControllerDelegate {
+    func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan) {
+        for i in 0..<scan.pageCount {
+            let img = scan.imageOfPage(at: i)
+            //self.saveImage(image:img)
+            self.imageView.image = img
+            self.setupVisionTextRecognizeImage(image: self.imageView.image)
+        }
+    }
+    
+    private func saveImage(image:UIImage) {
+        let alertController = UIAlertController(title: "SAVE", message: "do you want to save image?", preferredStyle: .alert)
+        let sAlert = UIAlertAction(title: "YES", style: .default) { (action) in
+            self.imageView.image = image
+            self.setupVisionTextRecognizeImage(image: self.imageView.image)
+        }
+        
+        let noAlert = UIAlertAction(title: "NO", style: .default) { (action) in
+            
+        }
+        
+        alertController.addAction(sAlert)
+        alertController.addAction(noAlert)
+        self.present(alertController, animated: true, completion: nil)
+    }
+}
 
 // MARK:- EXTENSION UIImagePickerController
 
@@ -114,7 +151,7 @@ extension ViewController:UIImagePickerControllerDelegate,UINavigationControllerD
         picker.dismiss(animated: true, completion: nil)
         let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         self.imageView.image = image
-        setupVisionTextRecognizeImage()
+        setupVisionTextRecognizeImage(image: self.imageView.image)
     }
 }
 
